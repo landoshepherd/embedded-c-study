@@ -147,8 +147,24 @@ int main(void)
   math_op = multiply;
   printf("multiply(3, 4)    = %d\n", math_op(3, 4));
 
+	printf("\n");
+
   printf("=== Part 2: Driver Abstraction ===\n");
-  run_uart_application(&UART_A_Driver, 900);
+  run_uart_application(&UART_A_Driver, 115200);
+
+	run_uart_application(&UART_B_Driver, 9600);
+
+	printf("\n");
+
+  printf("=== Part 3: Dispatch Table ===\n");
+	SystemState_t system_state = STATE_IDLE;
+	state_handlers[system_state]();
+
+	system_state = STATE_RUNNING;
+	state_handlers[system_state]();
+
+	system_state = STATE_ERROR;
+	state_handlers[system_state]();
 
   return 0;
 }
